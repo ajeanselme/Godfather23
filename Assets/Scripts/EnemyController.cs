@@ -1,21 +1,36 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum EnemyType
+    {
+        Melee,
+        Range,
+        Fast
+    }
+    
     
     public float moveSpeed;
     public float knockbackSpeed;
     public float knockbackDuration;
     public int maxHealth = 2;
-    public PlayerController.ButtonColor _hurtColor;
+    public PlayerController.ButtonColor hurtColor;
 
+    public EnemyType enemyType;
+    
     private SpriteRenderer _spriteRenderer;
 
     private int _currentHealth;
     private bool _knockbacking = false;
+    private float _offsetPositioning;
+
+    [HideInInspector]
+    public float distanceToPlayer;
 
     private void Start()
     {
@@ -26,31 +41,44 @@ public class EnemyController : MonoBehaviour
         {
             case 0:
             {
-                _hurtColor = PlayerController.ButtonColor.RED;
+                hurtColor = PlayerController.ButtonColor.RED;
                 _spriteRenderer.color = Color.red;
                 break;
             }
             case 1:
             {
-                _hurtColor = PlayerController.ButtonColor.GREEN;
+                hurtColor = PlayerController.ButtonColor.GREEN;
                 _spriteRenderer.color = Color.green;
                 break;
             }
             case 2:
             {
-                _hurtColor = PlayerController.ButtonColor.BLUE;
+                hurtColor = PlayerController.ButtonColor.BLUE;
                 _spriteRenderer.color = Color.blue;
                 break;
             }
             case 3:
             {
-                _hurtColor = PlayerController.ButtonColor.YELLOW;
+                hurtColor = PlayerController.ButtonColor.YELLOW;
                 _spriteRenderer.color = Color.yellow;
                 break;
             }
         }
 
         _currentHealth = maxHealth;
+        
+        var melee = PlayerController.Instance.meleeRange;
+        var distance = PlayerController.Instance.distanceRange;
+        if (enemyType == EnemyType.Melee)
+        {
+            _offsetPositioning = 1;
+        } else if (enemyType == EnemyType.Range)
+        {
+            _offsetPositioning = (distance - melee) / 2 + melee;
+        } else if (enemyType == EnemyType.Fast)
+        {
+            _offsetPositioning = 1;
+        }
     }
 
     void Update()
@@ -68,17 +96,23 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(playerPos, pos) > 1)
+            if (Vector2.Distance(playerPos, pos) > _offsetPositioning)
             {
                 var step =  moveSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(pos, playerPos, step);
             }
+            else
+            {
+                // TODO ATTACK
+            }
         }
+
+        distanceToPlayer = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
     }
 
-    public void Hurt(PlayerController.ButtonColor buttonColor)
+    public void HurtMelee(PlayerController.ButtonColor buttonColor)
     {
-        if (buttonColor != _hurtColor)
+        if (buttonColor != hurtColor)
         {
             return;
         }
@@ -89,7 +123,26 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
-        
+        Hurt();
+    }
+
+    public void HurtDistance(PlayerController.ButtonColor buttonColor)
+    {
+        if (buttonColor != hurtColor)
+        {
+            return;
+        }
+
+        var distance = Vector2.Distance(PlayerController.Instance.transform.position, transform.position);
+        if (distance > PlayerController.Instance.distanceRange || distance <= PlayerController.Instance.meleeRange)
+        {
+            return;
+        }
+        Hurt();
+    }
+
+    private void Hurt()
+    {
         StartCoroutine(Knockback());
         _currentHealth -= 1;
 

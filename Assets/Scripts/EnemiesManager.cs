@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
-public class PlayerAttackEvent : UnityEvent<PlayerController.ButtonColor>
-{
-}
+public class PlayerMeleeAttackEvent : UnityEvent<PlayerController.ButtonColor> { }
+public class PlayerRangedAttackEvent : UnityEvent<PlayerController.ButtonColor> { }
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -20,9 +21,10 @@ public class EnemiesManager : MonoBehaviour
     
     private List<Transform> spawners = new ();
     
-    private List<GameObject> enemies = new ();
+    private List<EnemyController> enemies = new ();
 
-    public PlayerAttackEvent playerAttackEvent = new ();
+    public PlayerMeleeAttackEvent playerMeleeAttackEvent = new ();
+    public PlayerRangedAttackEvent playerRangedAttackEvent = new ();
 
 
     private void Awake()
@@ -47,10 +49,12 @@ public class EnemiesManager : MonoBehaviour
         var random = Random.Range(0, spawners.Count);
         var spawner = spawners[random];
         var newEnemy = Instantiate(enemyPrefab, spawner);
-        enemies.Add(newEnemy);
 
         var controller = newEnemy.GetComponent<EnemyController>();
-        playerAttackEvent.AddListener(controller.Hurt);
+        enemies.Add(controller);
+        
+        playerMeleeAttackEvent.AddListener(controller.HurtMelee);
+        playerRangedAttackEvent.AddListener(controller.HurtDistance);
     }
 
     private void Update()
@@ -63,6 +67,28 @@ public class EnemiesManager : MonoBehaviour
 
     public void KillEnemy(EnemyController enemyController)
     {
+        enemies.Remove(enemyController);
         Destroy(enemyController.gameObject);
+    }
+
+    public EnemyController GetClosestEnemy(PlayerController.ButtonColor buttonColor)
+    {
+        List<EnemyController> coloredEnemies = (from enemy in enemies
+            where enemy.hurtColor == buttonColor
+            select enemy).ToList();
+        
+        coloredEnemies.Sort(SortByDistance);
+
+        if (coloredEnemies.Count <= 0)
+        {
+            return null;
+        }
+
+        return coloredEnemies.First();
+    }
+    
+    private int SortByDistance(EnemyController p1, EnemyController p2)
+    {
+        return p1.distanceToPlayer.CompareTo(p2.distanceToPlayer);
     }
 }

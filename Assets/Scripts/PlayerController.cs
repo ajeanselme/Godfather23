@@ -41,14 +41,18 @@ public class PlayerController : MonoBehaviour
                 MeleeAttack(key.Color);
             } else if (key?.Type == InputController.ButtonKey.AttackType.Ranged)
             {
-                // TODO Distance attack
+                RangedAttack(key.Color);
             }
         }
     }
 
     private void MeleeAttack(ButtonColor color)
     {
-        EnemiesManager.Instance.playerAttackEvent.Invoke(color);
+        EnemiesManager.Instance.playerMeleeAttackEvent.Invoke(color);
+    }
+    private void RangedAttack(ButtonColor color)
+    {
+        EnemiesManager.Instance.GetClosestEnemy(color)?.HurtDistance(color);
     }
     
 }

@@ -103,7 +103,9 @@ MonoBehaviour:
   knockbackSpeed: 10
   knockbackDuration: 0.3
   maxHealth: 2
-  _hurtColor: 0
+  hurtColor: 0
+  enemyType: 1
+  distanceToPlayer: 0
 --- !u!50 &7371039347559321331
 Rigidbody2D:
   serializedVersion: 4

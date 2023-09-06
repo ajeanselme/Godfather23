@@ -487,9 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeRange: 3
-  meleeController: {fileID: 0}
-  distanceRange: 7
-  distanceController: {fileID: 0}
+  distanceRange: 11
 --- !u!114 &1780949928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,17 +504,29 @@ MonoBehaviour:
   - KeyCode: 122
     Type: 0
     Color: 0
+  - KeyCode: 111
+    Type: 1
+    Color: 0
   greenKeys:
   - KeyCode: 113
     Type: 0
+    Color: 1
+  - KeyCode: 112
+    Type: 1
     Color: 1
   blueKeys:
   - KeyCode: 115
     Type: 0
     Color: 2
+  - KeyCode: 108
+    Type: 1
+    Color: 2
   yellowKeys:
   - KeyCode: 101
     Type: 0
+    Color: 3
+  - KeyCode: 109
+    Type: 1
     Color: 3
 --- !u!1 &1860063905
 GameObject:
@@ -580,7 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2427374078372418548, guid: db159ddae36662f46b2226e448673b95, type: 3}
   spawnerParent: {fileID: 483592815}
-  playerAttackEvent:
+  playerMeleeAttackEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2126393859
