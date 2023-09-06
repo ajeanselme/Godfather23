@@ -51,10 +51,12 @@ public class InputController : MonoBehaviour
     public ButtonKey GetKey(String keyString)
     {
         KeyCode parsed;
-        if (!KeyCode.TryParse(keyString, out parsed))
+        if (!Enum.TryParse(keyString.ToUpper(), out parsed))
         {
             return null;
         }
-        return _mapping[parsed];
+        
+        _mapping.TryGetValue(parsed, out ButtonKey result);
+        return result;
     }
 }

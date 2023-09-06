@@ -15,22 +15,9 @@ public class PlayerController : MonoBehaviour
         BLUE,
         YELLOW
     }
-
-    [SerializeField]
-    private float meleeRange;
     
-    [SerializeField]
-    private GameObject meleeController;
-
-    [SerializeField]
-    private float distanceRange;
-    
-    [SerializeField]
-    private GameObject distanceController;
-
-
-    private List<EnemyController> _meleeEnemiesInRange;
-    private List<EnemyController> _distanceEnemiesInRange;
+    public float meleeRange;
+    public float distanceRange;
 
     private void Awake()
     {
@@ -42,9 +29,6 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(this);
         }
-
-        meleeController.GetComponent<CircleCollider2D>().radius = meleeRange;
-        distanceController.GetComponent<CircleCollider2D>().radius = distanceRange;
     }
 
     void Update()
@@ -62,29 +46,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ColliderTrigger(Collider2D other)
-    {
-        Debug.Log(other);
-        if (other.GetInstanceID() == meleeController.GetInstanceID())
-        {
-            Debug.Log("New enemy in melee range");
-            _meleeEnemiesInRange.Add(other.gameObject.GetComponent<EnemyController>());
-        } else if (other.GetInstanceID() == distanceController.GetInstanceID())
-        {
-            _distanceEnemiesInRange.Add(other.gameObject.GetComponent<EnemyController>());
-        }
-    }
-
     private void MeleeAttack(ButtonColor color)
     {
-        Debug.Log("Melee " + color);
-        foreach (var enemy in _meleeEnemiesInRange)
-        {
-            if (enemy._hurtColor == color)
-            {
-                EnemiesManager.Instance.KillEnemy(enemy);
-            }
-        }
+        EnemiesManager.Instance.playerAttackEvent.Invoke(color);
     }
     
 }

@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
+
+[System.Serializable]
+public class PlayerAttackEvent : UnityEvent<PlayerController.ButtonColor>
+{
+}
 
 public class EnemiesManager : MonoBehaviour
 {
@@ -9,9 +16,13 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField]
     private GameObject enemyPrefab;
 
-    [SerializeField] private Transform spawner;
+    [SerializeField] private Transform spawnerParent;
+    
+    private List<Transform> spawners = new ();
     
     private List<GameObject> enemies = new ();
+
+    public PlayerAttackEvent playerAttackEvent = new ();
 
 
     private void Awake()
@@ -24,13 +35,22 @@ public class EnemiesManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        for (int i = 0; i < spawnerParent.childCount; i++)
+        {
+            spawners.Add(spawnerParent.GetChild(i));
+        }
     }
 
     public void SpawnEnemy()
     {
+        var random = Random.Range(0, spawners.Count);
+        var spawner = spawners[random];
         var newEnemy = Instantiate(enemyPrefab, spawner);
         enemies.Add(newEnemy);
-        Debug.Log("Spawn enemy");
+
+        var controller = newEnemy.GetComponent<EnemyController>();
+        playerAttackEvent.AddListener(controller.Hurt);
     }
 
     private void Update()
