@@ -19,13 +19,14 @@ public class EnemiesManager : MonoBehaviour
 
     [SerializeField] private Transform spawnerParent;
     
-    private List<Transform> spawners = new ();
+    private List<Transform> _spawners = new ();
     
-    private List<EnemyController> enemies = new ();
+    private List<EnemyController> _enemies = new ();
 
     public PlayerMeleeAttackEvent playerMeleeAttackEvent = new ();
     public PlayerRangedAttackEvent playerRangedAttackEvent = new ();
 
+    private int _currentWave = 0;
 
     private void Awake()
     {
@@ -40,40 +41,52 @@ public class EnemiesManager : MonoBehaviour
 
         for (int i = 0; i < spawnerParent.childCount; i++)
         {
-            spawners.Add(spawnerParent.GetChild(i));
+            _spawners.Add(spawnerParent.GetChild(i));
         }
     }
 
-    public void SpawnEnemy()
+
+    private void Update()
     {
-        var random = Random.Range(0, spawners.Count);
-        var spawner = spawners[random];
+        if (_enemies.Count <= 0)
+        {
+            StartNewWave();
+        }
+    }
+    
+    
+    private void StartNewWave()
+    {
+        _currentWave++;
+        int enemyAmount = (int) (_currentWave * 1.1);
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            SpawnEnemy();
+        }
+    }
+    
+    private void SpawnEnemy()
+    {
+        var random = Random.Range(0, _spawners.Count);
+        var spawner = _spawners[random];
         var newEnemy = Instantiate(enemyPrefab, spawner);
 
         var controller = newEnemy.GetComponent<EnemyController>();
-        enemies.Add(controller);
+        _enemies.Add(controller);
         
         playerMeleeAttackEvent.AddListener(controller.HurtMelee);
         playerRangedAttackEvent.AddListener(controller.HurtDistance);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnEnemy();
-        }
-    }
-
     public void KillEnemy(EnemyController enemyController)
     {
-        enemies.Remove(enemyController);
+        _enemies.Remove(enemyController);
         Destroy(enemyController.gameObject);
     }
 
     public EnemyController GetClosestEnemy(PlayerController.ButtonColor buttonColor)
     {
-        List<EnemyController> coloredEnemies = (from enemy in enemies
+        List<EnemyController> coloredEnemies = (from enemy in _enemies
             where enemy.hurtColor == buttonColor
             select enemy).ToList();
         

@@ -7,7 +7,7 @@
     <list default="true" id="982a654c-f10f-41a2-b72d-7678881eb998" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +100,7 @@
       <workItem from="1693915483189" duration="1510000" />
       <workItem from="1693986513329" duration="7201000" />
       <workItem from="1693999141425" duration="10455000" />
-      <workItem from="1694075296921" duration="821000" />
+      <workItem from="1694075296921" duration="2987000" />
     </task>
     <servers />
   </component>

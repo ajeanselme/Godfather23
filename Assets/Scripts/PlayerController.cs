@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private int _currentHealth;
     private bool _invincible;
 
+    private Animator _animator;
+
     private void Awake()
     {
         if (Instance == null)
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(this);
         }
+
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -90,12 +94,15 @@ public class PlayerController : MonoBehaviour
     private IEnumerator HurtState()
     {
         _invincible = true;
-        
-        //TODO Play animation
+        _animator.SetBool("Blinking", true);
 
         yield return new WaitForSeconds(1);
         
+        _animator.SetBool("Blinking", false);
+        
+        yield return new WaitForSeconds(.5f);
         _invincible = false;
+        
     }
 
 
