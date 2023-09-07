@@ -32,6 +32,9 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public float distanceToPlayer;
 
+    public float attackCooldown;
+    private float _nextAttackTime;
+
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -103,7 +106,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                // TODO ATTACK
+                Attack();
             }
         }
 
@@ -157,5 +160,15 @@ public class EnemyController : MonoBehaviour
         _knockbacking = true;
         yield return new WaitForSeconds(knockbackDuration);
         _knockbacking = false;
+    }
+
+    private void Attack()
+    {
+        if (Time.time <= _nextAttackTime) return;
+        
+        _nextAttackTime = Time.time + attackCooldown;
+        PlayerController.Instance.TryHurt();
+        
+        //TODO Play attack animation
     }
 }

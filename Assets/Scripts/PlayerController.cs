@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +19,12 @@ public class PlayerController : MonoBehaviour
     
     public float meleeRange;
     public float distanceRange;
+    public int maxHealth;
+
+    public GameObject diePanel;
+
+    private int _currentHealth;
+    private bool _invincible;
 
     private void Awake()
     {
@@ -29,6 +36,12 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        diePanel.SetActive(false);
+        _currentHealth = maxHealth;
     }
 
     void Update()
@@ -54,5 +67,41 @@ public class PlayerController : MonoBehaviour
     {
         EnemiesManager.Instance.GetClosestEnemy(color)?.HurtDistance(color);
     }
-    
+
+    public void TryHurt()
+    {
+        if(_invincible) return;
+
+        //TODO ANIMATION
+        
+        _currentHealth -= 1;
+
+        if (_currentHealth <= 0)
+        {
+            Die();
+            return;
+        }
+        
+        StartCoroutine(HurtState());
+        
+        Debug.Log("Hurt " + _currentHealth);
+    }
+
+    private IEnumerator HurtState()
+    {
+        _invincible = true;
+        
+        //TODO Play animation
+
+        yield return new WaitForSeconds(1);
+        
+        _invincible = false;
+    }
+
+
+    private void Die()
+    {
+        diePanel.SetActive(true);
+        Time.timeScale = 0;
+    }
 }
