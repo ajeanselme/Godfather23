@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_gray
-  m_Shader: {fileID: -6465566751694194690, guid: 01060ebe280997d409182ce303a7faeb,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 01060ebe280997d409182ce303a7faeb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -115,7 +114,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Progress: 0.175
+    - _Progress: 0.5
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
