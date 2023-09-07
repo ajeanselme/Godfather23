@@ -7,15 +7,17 @@ using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
-public class PlayerMeleeAttackEvent : UnityEvent<PlayerController.ButtonColor> { }
-public class PlayerRangedAttackEvent : UnityEvent<PlayerController.ButtonColor> { }
+public class PlayerMeleeAttackEvent : UnityEvent<PlayerController.ButtonColor, int> { }
+public class PlayerRangedAttackEvent : UnityEvent<PlayerController.ButtonColor, int> { }
 
 public class EnemiesManager : MonoBehaviour
 {
     public static EnemiesManager Instance;
     
     [SerializeField]
-    private GameObject enemyPrefab;
+    private GameObject enemyMeleePrefab;
+    [SerializeField]
+    private GameObject enemyRangedPrefab;
 
     [SerializeField] private Transform spawnerParent;
     
@@ -25,6 +27,9 @@ public class EnemiesManager : MonoBehaviour
 
     public PlayerMeleeAttackEvent playerMeleeAttackEvent = new ();
     public PlayerRangedAttackEvent playerRangedAttackEvent = new ();
+
+    public int killCount = 0;
+    public int currentKillProgress = 0;
 
     private int _currentWave = 0;
 
@@ -69,10 +74,16 @@ public class EnemiesManager : MonoBehaviour
     {
         var random = Random.Range(0, _spawners.Count);
         var spawner = _spawners[random];
-        var newEnemy = Instantiate(enemyPrefab, spawner);
+        var newEnemy = Instantiate(enemyMeleePrefab, spawner);
 
         var controller = newEnemy.GetComponent<EnemyController>();
         _enemies.Add(controller);
+
+        random = Random.Range(1, 4);
+        controller.colorAmount = (int) (random * _currentWave / 5f);
+
+        random = Random.Range(1, 4);
+        controller.colorStreakNeeded = (int) (random * _currentWave / 5f);
         
         playerMeleeAttackEvent.AddListener(controller.HurtMelee);
         playerRangedAttackEvent.AddListener(controller.HurtDistance);
@@ -82,6 +93,9 @@ public class EnemiesManager : MonoBehaviour
     {
         _enemies.Remove(enemyController);
         Destroy(enemyController.gameObject);
+
+        killCount++;
+        currentKillProgress++;
     }
 
     public EnemyController GetClosestEnemy(PlayerController.ButtonColor buttonColor)
@@ -98,6 +112,16 @@ public class EnemiesManager : MonoBehaviour
         }
 
         return coloredEnemies.First();
+    }
+
+    public EnemyController[] GetEnemiesAround(Vector2 position, PlayerController.ButtonColor buttonColor, float range)
+    {
+        List<EnemyController> coloredEnemies = (from enemy in _enemies
+            where enemy.hurtColor == buttonColor
+            where Vector2.Distance(enemy.transform.position, position) <= range
+            select enemy).ToList();
+
+        return coloredEnemies.ToArray();
     }
     
     private int SortByDistance(EnemyController p1, EnemyController p2)

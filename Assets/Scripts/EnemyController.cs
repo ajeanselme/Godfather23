@@ -18,14 +18,12 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed;
     public float knockbackSpeed;
     public float knockbackDuration;
-    public int maxHealth = 2;
     public PlayerController.ButtonColor hurtColor;
 
     public EnemyType enemyType;
     
     private SpriteRenderer _spriteRenderer;
 
-    private int _currentHealth;
     private bool _knockbacking = false;
     private float _offsetPositioning;
 
@@ -35,41 +33,17 @@ public class EnemyController : MonoBehaviour
     public float attackCooldown;
     private float _nextAttackTime;
 
+    public int colorAmount = 1;
+    public int colorStreakNeeded = 1;
+    
+    private int _hurtAmount = 0;
+
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         
-        var random = Random.Range(0, 4);
-        switch (random)
-        {
-            case 0:
-            {
-                hurtColor = PlayerController.ButtonColor.RED;
-                _spriteRenderer.color = Color.red;
-                break;
-            }
-            case 1:
-            {
-                hurtColor = PlayerController.ButtonColor.GREEN;
-                _spriteRenderer.color = Color.green;
-                break;
-            }
-            case 2:
-            {
-                hurtColor = PlayerController.ButtonColor.BLUE;
-                _spriteRenderer.color = Color.blue;
-                break;
-            }
-            case 3:
-            {
-                hurtColor = PlayerController.ButtonColor.YELLOW;
-                _spriteRenderer.color = Color.yellow;
-                break;
-            }
-        }
+        SetRandomColor();
 
-        _currentHealth = maxHealth;
-        
         var melee = PlayerController.Instance.meleeRange;
         var distance = PlayerController.Instance.distanceRange;
         if (enemyType == EnemyType.Melee)
@@ -113,7 +87,7 @@ public class EnemyController : MonoBehaviour
         distanceToPlayer = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
     }
 
-    public void HurtMelee(PlayerController.ButtonColor buttonColor)
+    public void HurtMelee(PlayerController.ButtonColor buttonColor, int damage = 1)
     {
         if (buttonColor != hurtColor)
         {
@@ -126,10 +100,10 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
-        Hurt();
+        Hurt(damage);
     }
 
-    public void HurtDistance(PlayerController.ButtonColor buttonColor)
+    public void HurtDistance(PlayerController.ButtonColor buttonColor, int damage = 1)
     {
         if (buttonColor != hurtColor)
         {
@@ -141,17 +115,24 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
-        Hurt();
+        Hurt(damage);
     }
 
-    private void Hurt()
+    private void Hurt(int damage = 1)
     {
         StartCoroutine(Knockback());
-        _currentHealth -= 1;
 
-        if (_currentHealth <= 0)
+        _hurtAmount += damage;
+
+        if (_hurtAmount >= colorAmount + colorStreakNeeded)
         {
             EnemiesManager.Instance.KillEnemy(this);
+            return;
+        }
+
+        if (_hurtAmount >= colorStreakNeeded)
+        {
+            SetRandomColor();
         }
     }
 
@@ -170,5 +151,56 @@ public class EnemyController : MonoBehaviour
         PlayerController.Instance.TryHurt();
         
         //TODO Play attack animation
+    }
+
+    private void SetRandomColor()
+    {
+        var random = Random.Range(0, 4);
+        switch (random)
+        {
+            case 0:
+                SetColor(PlayerController.ButtonColor.RED);
+                break;
+            case 1:
+                SetColor(PlayerController.ButtonColor.GREEN);
+                break;
+            case 2:
+                SetColor(PlayerController.ButtonColor.BLUE);
+                break;
+            case 3:
+                SetColor(PlayerController.ButtonColor.YELLOW);
+                break;
+        }   
+    }
+    
+    private void SetColor(PlayerController.ButtonColor buttonColor)
+    {
+        switch (buttonColor)
+        {
+            case PlayerController.ButtonColor.RED:
+            {
+                hurtColor = PlayerController.ButtonColor.RED;
+                _spriteRenderer.color = Color.red;
+                break;
+            }
+            case PlayerController.ButtonColor.GREEN:
+            {
+                hurtColor = PlayerController.ButtonColor.GREEN;
+                _spriteRenderer.color = Color.green;
+                break;
+            }
+            case PlayerController.ButtonColor.BLUE:
+            {
+                hurtColor = PlayerController.ButtonColor.BLUE;
+                _spriteRenderer.color = Color.blue;
+                break;
+            }
+            case PlayerController.ButtonColor.YELLOW:
+            {
+                hurtColor = PlayerController.ButtonColor.YELLOW;
+                _spriteRenderer.color = Color.yellow;
+                break;
+            }
+        }
     }
 }

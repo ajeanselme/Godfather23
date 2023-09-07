@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7371039347559321331}
   - component: {fileID: 5916429335003010837}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyRanged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   hurtColor: 0
   enemyType: 1
   distanceToPlayer: 0
+  attackCooldown: 2
 --- !u!50 &7371039347559321331
 Rigidbody2D:
   serializedVersion: 4
