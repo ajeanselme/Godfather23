@@ -47,6 +47,7 @@ public class LevelManager : MonoBehaviour
         if (_gameOverUI.activeInHierarchy == true)
         {
             SceneManager.LoadScene("Antoine");
+            _gameOverUI.SetActive(false);
         }
     }
 
@@ -55,6 +56,8 @@ public class LevelManager : MonoBehaviour
         if (_gameOverUI.activeInHierarchy == true)
         {
             SceneManager.LoadScene("proto");
+            _gameOverUI.SetActive(false);
+            _mainMenuUI.SetActive(true);
         }
     }
 
