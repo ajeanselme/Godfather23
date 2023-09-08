@@ -6,13 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="982a654c-f10f-41a2-b72d-7678881eb998" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/background.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_gray.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_gray.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/LevelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/test.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/test.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyMelee.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyMelee.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Explosion.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Explosion.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectile/Explosion/Anim_explosion.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Projectile/Explosion/Anim_explosion.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Projectile/Explosion/Explosion.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Projectile/Explosion/Explosion.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +32,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b89873cb176e44a995a4781c7487d41046ac00/f8/7c18dca0/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Couche.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Explosion.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap.extras@3.1.1/Runtime/Tiles/HexagonalRuleTile/HexagonalRuleTile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.2.4/Unity.Collections.Tests/FixedListTests.gen.cs" root0="SKIP_HIGHLIGHTING" />
@@ -62,7 +68,7 @@
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Build\fatalbaby.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../../Téléchargements/Build\fatalbaby.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="D:\PC\Documents\Github\Godfather23\Build" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -118,7 +124,7 @@
       <workItem from="1693986513329" duration="7201000" />
       <workItem from="1693999141425" duration="10455000" />
       <workItem from="1694075296921" duration="16740000" />
-      <workItem from="1694160445332" duration="5985000" />
+      <workItem from="1694160445332" duration="10252000" />
     </task>
     <servers />
   </component>

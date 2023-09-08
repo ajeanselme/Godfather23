@@ -28,6 +28,8 @@ public class EnemiesManager : MonoBehaviour
     public PlayerMeleeAttackEvent playerMeleeAttackEvent = new ();
     public PlayerRangedAttackEvent playerRangedAttackEvent = new ();
 
+    public GameObject explosionPrefab;
+
     public int killCount = 0;
     public int currentKillProgress = 0;
 
@@ -101,12 +103,28 @@ public class EnemiesManager : MonoBehaviour
     public void KillEnemy(EnemyController enemyController)
     {
         _enemies.Remove(enemyController);
+        var pos = enemyController.transform.position;
+        var newExplo = Instantiate(explosionPrefab);
+        newExplo.transform.position = pos;
+
         Destroy(enemyController.gameObject);
 
         killCount++;
         currentKillProgress++;
 
-        PlayerController.Instance.AddScore(100);
+        switch (enemyController.enemyType)
+        {
+            case EnemyController.EnemyType.Melee:
+                PlayerController.Instance.AddScore(100);
+                break;
+            case EnemyController.EnemyType.Range:
+                PlayerController.Instance.AddScore(150);
+                break;
+            case EnemyController.EnemyType.Fast:
+                PlayerController.Instance.AddScore(200);
+                break;
+        }
+
     }
 
     public EnemyController GetClosestRangedEnemy(PlayerController.ButtonColor buttonColor)

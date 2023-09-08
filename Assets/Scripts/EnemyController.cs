@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     public float knockbackSpeed;
     public float knockbackDuration;
     public PlayerController.ButtonColor hurtColor;
-
+    
     public EnemyType enemyType;
     
     private SpriteRenderer _spriteRenderer;

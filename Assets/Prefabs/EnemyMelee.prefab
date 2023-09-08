@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52014c9e45972794fa27bd414a7d33c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 2
   knockbackSpeed: 10
   knockbackDuration: 0.3
   hurtColor: 0

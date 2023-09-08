@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
 
     public GameObject[] skins;
+    public Sprite[] heads;
+
+    public Image lifeUI;
     
     public GameObject diePanel;
     public TMP_Text diePanelScore;
@@ -71,12 +74,21 @@ public class PlayerController : MonoBehaviour
         skins[0].SetActive(true);
         skins[1].SetActive(false);
         skins[2].SetActive(false);
+
+        lifeUI.sprite = heads[0];
     }
 
     void Update()
     {
         if (Input.anyKeyDown)
         {
+            if (diePanel.activeInHierarchy)
+            {
+                SceneManager.LoadScene("Antoine");
+                Time.timeScale = 1;
+                return;
+            }
+            
             var key = InputController.Instance.GetKey(Input.inputString);
             if (key?.Type == InputController.ButtonKey.AttackType.Melee)
             {
@@ -235,12 +247,18 @@ public class PlayerController : MonoBehaviour
             skins[0].SetActive(true);
             skins[1].SetActive(false);
             skins[2].SetActive(false);
+            
+            lifeUI.sprite = heads[0];
+
             _activeSkinIndex = 0;
         } else if (_currentHealth >= maxHealth / 3f)
         {
             skins[0].SetActive(false);
             skins[1].SetActive(true);
             skins[2].SetActive(false);
+            
+            lifeUI.sprite = heads[1];
+            
             _activeSkinIndex = 1;
         }
         else
@@ -248,6 +266,9 @@ public class PlayerController : MonoBehaviour
             skins[0].SetActive(false);
             skins[1].SetActive(false);
             skins[2].SetActive(true);
+            
+            lifeUI.sprite = heads[2];
+
             _activeSkinIndex = 2;
         }
         Debug.Log("Hurt " + _currentHealth);
@@ -266,7 +287,8 @@ public class PlayerController : MonoBehaviour
             SetAlpha(.8f);
             yield return wait;
         }
-        
+        SetAlpha(1f);
+
         yield return new WaitForSeconds(.5f);
         _invincible = false;
     }
