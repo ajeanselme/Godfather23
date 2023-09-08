@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,9 +27,11 @@ public class PlayerController : MonoBehaviour
     public GameObject[] skins;
     
     public GameObject diePanel;
+    public TMP_Text diePanelScore;
     public GameObject couchePrefab;
 
     public Image furyBar;
+    public TMP_Text scoreText;
 
     public float rangedAttackCooldown = 1f;
     public int furyThreshold = 5;
@@ -41,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private int _currentHealth;
     private bool _invincible;
     private bool _fury;
+
+    public int score;
 
     private int _activeSkinIndex = 0;
     private float _nextRangedAttack;
@@ -204,6 +209,12 @@ public class PlayerController : MonoBehaviour
         SetColor(new Color(1f,1f, 1f, 1f));
     }
 
+    public void AddScore(int value)
+    {
+        score += value;
+        scoreText.text = score + "";
+    }
+    
     public void TryHurt()
     {
         if(_invincible) return;
@@ -298,5 +309,6 @@ public class PlayerController : MonoBehaviour
     {
         diePanel.SetActive(true);
         Time.timeScale = 0;
+        diePanelScore.text = score + "";
     }
 }

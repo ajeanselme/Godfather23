@@ -6,17 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="982a654c-f10f-41a2-b72d-7678881eb998" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Godfather23/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Ennemies/Doctor/idle/EnemyRanged.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Ennemies/Doctor/idle/EnemyRanged.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Ennemies/Surgeon/idle/EnemyMelee.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Ennemies/Surgeon/idle/EnemyMelee.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/Background_Loop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/Background_Loop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/background.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_gray.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_gray.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_greyness.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Dev/Enguerrand/M_greyness.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Couche.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Couche.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyMelee.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyMelee.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EnemyRanged.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EnemyRanged.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Antoine.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemiesManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +118,7 @@
       <workItem from="1693986513329" duration="7201000" />
       <workItem from="1693999141425" duration="10455000" />
       <workItem from="1694075296921" duration="16740000" />
-      <workItem from="1694160445332" duration="4534000" />
+      <workItem from="1694160445332" duration="5985000" />
     </task>
     <servers />
   </component>

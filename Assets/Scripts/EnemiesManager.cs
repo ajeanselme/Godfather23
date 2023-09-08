@@ -105,6 +105,8 @@ public class EnemiesManager : MonoBehaviour
 
         killCount++;
         currentKillProgress++;
+
+        PlayerController.Instance.AddScore(100);
     }
 
     public EnemyController GetClosestRangedEnemy(PlayerController.ButtonColor buttonColor)
