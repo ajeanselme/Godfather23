@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8251296744408628048}
   - component: {fileID: 4586004788804237090}
   m_Layer: 0
-  m_Name: Couche
+  m_Name: Pen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bb53a584d7f9dd4b93a3bc552856aae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75c2ba581b4f1d44da0ad16477e44815, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
