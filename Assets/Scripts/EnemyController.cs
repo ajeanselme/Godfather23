@@ -30,6 +30,9 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public float distanceToPlayer;
 
+    public GameObject[] colors;
+    public GameObject[] colorsMelee;
+
     public float attackCooldown;
     private float _nextAttackTime;
 
@@ -38,23 +41,26 @@ public class EnemyController : MonoBehaviour
     
     private int _hurtAmount = 0;
 
+    private Animator _animator;
+
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        _animator = GetComponent<Animator>();
+
         SetRandomColor();
 
         var melee = PlayerController.Instance.meleeRange;
         var distance = PlayerController.Instance.distanceRange;
         if (enemyType == EnemyType.Melee)
         {
-            _offsetPositioning = 1;
+            _offsetPositioning = 2;
         } else if (enemyType == EnemyType.Range)
         {
-            _offsetPositioning = (distance - melee) / 2 + melee;
+            _offsetPositioning = (distance - melee) / 4 + melee;
         } else if (enemyType == EnemyType.Fast)
         {
-            _offsetPositioning = 1;
+            _offsetPositioning = 2;
         }
     }
 
@@ -85,6 +91,21 @@ public class EnemyController : MonoBehaviour
         }
 
         distanceToPlayer = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
+
+        if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+        {
+            if (distanceToPlayer <= PlayerController.Instance.meleeRange)
+            {
+                SetActive(true);
+            }
+        }
+        else
+        {
+            if (distanceToPlayer <= PlayerController.Instance.distanceRange)
+            {
+                SetActive(true);
+            }
+        }
     }
 
     public void HurtMelee(PlayerController.ButtonColor buttonColor, int damage = 1)
@@ -150,7 +171,7 @@ public class EnemyController : MonoBehaviour
         _nextAttackTime = Time.time + attackCooldown;
         PlayerController.Instance.TryHurt();
         
-        //TODO Play attack animation
+        _animator.SetTrigger("Attack");
     }
 
     private void SetRandomColor()
@@ -175,31 +196,185 @@ public class EnemyController : MonoBehaviour
     
     private void SetColor(PlayerController.ButtonColor buttonColor)
     {
+        foreach (var color in colors)
+        {
+            color.SetActive(false);
+        }
+        foreach (var color in colorsMelee)
+        {
+            color.SetActive(false);
+        }
+        
         switch (buttonColor)
         {
             case PlayerController.ButtonColor.RED:
             {
                 hurtColor = PlayerController.ButtonColor.RED;
-                _spriteRenderer.color = Color.red;
+                if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                {
+                    colorsMelee[0].SetActive(true);
+                }
+                else
+                {
+                    colors[0].SetActive(true);
+                }
                 break;
             }
             case PlayerController.ButtonColor.GREEN:
             {
                 hurtColor = PlayerController.ButtonColor.GREEN;
-                _spriteRenderer.color = Color.green;
+                if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                {
+                    colorsMelee[2].SetActive(true);
+                }
+                else
+                {
+                    colors[2].SetActive(true);
+                }
                 break;
             }
             case PlayerController.ButtonColor.BLUE:
             {
                 hurtColor = PlayerController.ButtonColor.BLUE;
-                _spriteRenderer.color = Color.blue;
+                if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                {
+                    colorsMelee[4].SetActive(true);
+                }
+                else
+                {
+                    colors[4].SetActive(true);
+                }
                 break;
             }
             case PlayerController.ButtonColor.YELLOW:
             {
                 hurtColor = PlayerController.ButtonColor.YELLOW;
-                _spriteRenderer.color = Color.yellow;
+                if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                {
+                    colorsMelee[6].SetActive(true);
+                }
+                else
+                {
+                    colors[6].SetActive(true);
+                }
                 break;
+            }
+        }
+    }
+
+    private void SetActive(bool value)
+    {
+        foreach (var color in colors)
+        {
+            color.SetActive(false);
+        }
+        if (value)
+        {
+            switch (hurtColor)
+            {
+                case PlayerController.ButtonColor.RED:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[1].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[1].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.GREEN:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[3].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[3].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.BLUE:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[5].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[5].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.YELLOW:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[7].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[7].SetActive(true);
+                    }
+                    break;
+                }
+            }
+        }
+        else
+        {
+            switch (hurtColor)
+            {
+                case PlayerController.ButtonColor.RED:
+                {
+                    
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[0].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[0].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.GREEN:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[2].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[2].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.BLUE:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[4].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[4].SetActive(true);
+                    }
+                    break;
+                }
+                case PlayerController.ButtonColor.YELLOW:
+                {
+                    if (enemyType == EnemyType.Melee || enemyType == EnemyType.Fast)
+                    {
+                        colorsMelee[6].SetActive(true);
+                    }
+                    else
+                    {
+                        colors[6].SetActive(true);
+                    }
+                    break;
+                }
             }
         }
     }

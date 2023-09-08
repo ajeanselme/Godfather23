@@ -32,7 +32,7 @@ public class EnemiesManager : MonoBehaviour
     public int currentKillProgress = 0;
 
     private int _currentWave = 0;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -74,9 +74,18 @@ public class EnemiesManager : MonoBehaviour
     {
         var random = Random.Range(0, _spawners.Count);
         var spawner = _spawners[random];
-        var newEnemy = Instantiate(enemyMeleePrefab, spawner);
+        GameObject newEnemy = null;
+        
+        random = Random.Range(0, 2);
+        if (random == 0)
+        {
+            newEnemy = Instantiate(enemyMeleePrefab, spawner);
+        } else if (random == 1)
+        {
+            newEnemy = Instantiate(enemyRangedPrefab, spawner);
+        }
 
-        var controller = newEnemy.GetComponent<EnemyController>();
+        var controller = newEnemy!.GetComponent<EnemyController>();
         _enemies.Add(controller);
 
         random = Random.Range(1, 4);
@@ -98,10 +107,11 @@ public class EnemiesManager : MonoBehaviour
         currentKillProgress++;
     }
 
-    public EnemyController GetClosestEnemy(PlayerController.ButtonColor buttonColor)
+    public EnemyController GetClosestRangedEnemy(PlayerController.ButtonColor buttonColor)
     {
         List<EnemyController> coloredEnemies = (from enemy in _enemies
             where enemy.hurtColor == buttonColor
+            where enemy.enemyType == EnemyController.EnemyType.Range
             select enemy).ToList();
         
         coloredEnemies.Sort(SortByDistance);

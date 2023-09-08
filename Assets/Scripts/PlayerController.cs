@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
             return;
 
 
-        var closest = EnemiesManager.Instance.GetClosestEnemy(color);
+        var closest = EnemiesManager.Instance.GetClosestRangedEnemy(color);
         if(closest == null) return;
 
         var targetPosition = closest.transform.position;
